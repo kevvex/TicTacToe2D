@@ -5,6 +5,25 @@ import org.junit.jupiter.api.Test;
 class GameTest {
 
     @Test
+    @DisplayName("Check to see if board is full")
+    void checkifBoardIsFull() {
+        Game game = new Game();
+
+        game.updateBoard(0, 0, Game.SYMBOL.O);
+        game.updateBoard(1, 0, Game.SYMBOL.O);
+        game.updateBoard(2, 0, Game.SYMBOL.O);
+
+        game.updateBoard(0, 1, Game.SYMBOL.O);
+        game.updateBoard(1, 1, Game.SYMBOL.X);
+        game.updateBoard(2, 1, Game.SYMBOL.X);
+
+        game.updateBoard(0, 2, Game.SYMBOL.O);
+        game.updateBoard(1, 2, Game.SYMBOL.X);
+        game.updateBoard(2, 2, Game.SYMBOL.X);
+        Assertions.assertTrue(game.isBoardFull());
+    }
+
+    @Test
     @DisplayName("Check if the position is already taken")
     void checkIfPositionIsTaken() {
         Game game = new Game();

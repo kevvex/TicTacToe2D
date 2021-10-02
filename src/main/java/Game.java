@@ -11,12 +11,14 @@ class Game {
     private int inputY;
     private final int INVALID = -1;
 
+    private int boardFullCounter = 0;
+
     enum SYMBOL {
         X, O, EMPTY
     }
 
     enum CODE {
-        OK, POSITION_TAKEN, INVALID_COORDINATE
+        OK, POSITION_TAKEN, INVALID_COORDINATE, TIE
     }
 
     static final int BOARD_SIZE = 3;
@@ -37,14 +39,37 @@ class Game {
 
     void start() {
         boolean isValid;
-        while (!hasWon()) {
+        boolean shouldTogglePlayer = false;
+
+        CODE code = CODE.OK;
+        while (!hasWon() && code != CODE.TIE) {
+            shouldTogglePlayer = !shouldTogglePlayer;
+            SYMBOL symbol = togglePlayer(shouldTogglePlayer);
+
             isValid = isInputValid();
 
             if (isValid) {
-                updateBoard(inputX, inputY, SYMBOL.X);
+                code = updateBoard(inputX, inputY, symbol);
             }
             drawBoard();
         }
+    }
+
+    private SYMBOL togglePlayer(boolean toggle) {
+        String player;
+        SYMBOL symbol;
+        if (toggle) {
+            player = "Player 1's turn\n";
+            symbol = SYMBOL.X;
+        }
+        else {
+            player = "Player 2's turn\n";
+            symbol = SYMBOL.O;
+        }
+
+        System.out.println(player);
+
+        return symbol;
     }
 
     private boolean isInputValid() {
@@ -99,9 +124,10 @@ class Game {
         try {
             if (board[x][y] == EMPTY) {
                 board[x][y] = symbol;
+                boardFullCounter++;
             }
             else {
-                System.out.printf("Position (%d, %d) already taken!", x, y);
+                System.out.printf("Position (%d, %d) already taken!\n", x, y);
                 code = CODE.POSITION_TAKEN;
             }
         }
@@ -109,6 +135,13 @@ class Game {
             System.out.println("Invalid coordinate!");
             code = CODE.INVALID_COORDINATE;
         }
+
+        boolean isTie = isBoardFull();
+        if (isTie) {
+            System.out.println("It is a tie!");
+            code = CODE.TIE;
+        }
+
         return code;
     }
 
@@ -120,6 +153,10 @@ class Game {
             default: break;
         }
         return symbol;
+    }
+
+    boolean isBoardFull() {
+        return (boardFullCounter == (BOARD_SIZE * BOARD_SIZE));
     }
 
     void drawBoard() {
