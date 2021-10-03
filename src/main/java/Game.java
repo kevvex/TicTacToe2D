@@ -40,34 +40,56 @@ class Game {
     void start() {
         boolean isValid;
         boolean shouldTogglePlayer = false;
+        drawBoard();
 
         CODE code = CODE.OK;
         while (!hasWon() && code != CODE.TIE) {
-            shouldTogglePlayer = !shouldTogglePlayer;
-            SYMBOL symbol = togglePlayer(shouldTogglePlayer);
 
+            playerTurn(shouldTogglePlayer);
             isValid = isInputValid();
 
             if (isValid) {
+                SYMBOL symbol = togglePlayer(shouldTogglePlayer);
                 code = updateBoard(inputX, inputY, symbol);
             }
+
+            if (code == CODE.OK) {
+                shouldTogglePlayer = !shouldTogglePlayer;
+            }
+
             drawBoard();
         }
+
+        if (shouldTogglePlayer) {
+            System.out.println("Player 1 won!");
+        }
+        else {
+            System.out.println("Player 2 won!");
+        }
+    }
+
+    private void playerTurn(boolean toggle) {
+        String player;
+
+        if (toggle) {
+            player = "Player 2's turn\n";
+        }
+        else {
+            player = "Player 1's turn\n";
+        }
+
+        System.out.println(player);
     }
 
     private SYMBOL togglePlayer(boolean toggle) {
         String player;
         SYMBOL symbol;
         if (toggle) {
-            player = "Player 1's turn\n";
-            symbol = SYMBOL.X;
-        }
-        else {
-            player = "Player 2's turn\n";
             symbol = SYMBOL.O;
         }
-
-        System.out.println(player);
+        else {
+            symbol = SYMBOL.X;
+        }
 
         return symbol;
     }
@@ -113,7 +135,6 @@ class Game {
             hasWon = true;
         }
 
-        System.out.println(hasWon);
         return hasWon;
     }
 
