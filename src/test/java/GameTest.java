@@ -6,7 +6,7 @@ class GameTest {
 
     @Test
     @DisplayName("Check to see if board is full")
-    void checkifBoardIsFull() {
+    void checkIfBoardIsFull() {
         Game game = new Game();
 
         game.updateBoard(0, 0, Game.SYMBOL.O);
@@ -27,7 +27,7 @@ class GameTest {
     @DisplayName("Check if the position is already taken")
     void checkIfPositionIsTaken() {
         Game game = new Game();
-        game.board[1][1] = 'X';
+        game.updateBoard(1, 1, Game.SYMBOL.X);
         Game.CODE code = game.updateBoard(1, 1, Game.SYMBOL.X);
         Assertions.assertEquals(Game.CODE.POSITION_TAKEN, code);
     }

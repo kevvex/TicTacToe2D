@@ -22,7 +22,7 @@ class Game {
     }
 
     static final int BOARD_SIZE = 3;
-    char[][] board = new char[BOARD_SIZE][BOARD_SIZE];
+    private char[][] board = new char[BOARD_SIZE][BOARD_SIZE];
 
     Game() {
         inputX = inputY = 0;
@@ -38,8 +38,8 @@ class Game {
     }
 
     void start() {
-        boolean isValid;
         boolean shouldTogglePlayer = false;
+        boolean isValid;
         drawBoard();
 
         CODE code = CODE.OK;
@@ -60,11 +60,16 @@ class Game {
             drawBoard();
         }
 
-        if (shouldTogglePlayer) {
-            System.out.println("Player 1 won!");
+        if (code != CODE.TIE) {
+            if (shouldTogglePlayer) {
+                System.out.println("Player 1 won!");
+            }
+            else {
+                System.out.println("Player 2 won!");
+            }
         }
         else {
-            System.out.println("Player 2 won!");
+            System.out.println("It is a tie!");
         }
     }
 
@@ -166,7 +171,7 @@ class Game {
         return code;
     }
 
-    private char putWhichSymbol(SYMBOL choice) {
+    char putWhichSymbol(SYMBOL choice) {
         char symbol = ' ';
         switch (choice) {
             case O: symbol = O; break;
