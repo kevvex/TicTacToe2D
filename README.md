@@ -4,7 +4,7 @@ A tictactoe game written in Java using IntelliJ
 How to run:
 ```
 java -jar <NAME>.jar // Terminal version
-java -jar <NAME>.jar // GUI version
+java -jar <NAME>.jar gui // GUI version
 ```
 
 Build with Maven:
