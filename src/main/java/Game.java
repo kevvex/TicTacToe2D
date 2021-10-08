@@ -30,9 +30,9 @@ class Game {
     }
 
     private void initEmptyBoard() {
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                board[row][col] = EMPTY;
+        for (int x = 0; x < BOARD_SIZE; x++) {
+            for (int y = 0; y < BOARD_SIZE; y++) {
+                board[x][y] = EMPTY;
             }
         }
     }
@@ -104,9 +104,17 @@ class Game {
         try {
             Scanner scanner = new Scanner(System.in);
             System.out.print("x = ");
-            inputX = scanner.nextInt();
-            System.out.print("y = ");
             inputY = scanner.nextInt();
+            System.out.print("y = ");
+            inputX = scanner.nextInt();
+
+            /* Board does not place the symbol on correct coordinate
+             * since board is flipped when using the GUI version
+             * Therefore, here the x = y, and y = x.
+             *
+             * This so that the terminal board is updated correctly when
+             * using the GUI version.
+             */
         }
         catch (InputMismatchException e) {
             System.out.println("That is not an integer!");
@@ -186,10 +194,10 @@ class Game {
     }
 
     void drawBoard() {
-        for (int col = 0; col < BOARD_SIZE; col++) {
+        for (int x = 0; x < BOARD_SIZE; x++) {
             System.out.println("|---|---|---|");
-            for (int row = 0; row < BOARD_SIZE; row++) {
-                System.out.printf("| %c ", board[row][col]);
+            for (int y = 0; y < BOARD_SIZE; y++) {
+                System.out.printf("| %c ", board[x][y]);
             }
             System.out.print("|");
             System.out.println();

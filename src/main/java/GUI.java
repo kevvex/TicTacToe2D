@@ -55,12 +55,13 @@ class GUI extends JFrame implements MouseListener {
         int x = index / Game.BOARD_SIZE;
         int y = index - Game.BOARD_SIZE * x;
 
-        code = game.updateBoard(x, y, player.getSymbol());
-
         if (code == Game.CODE.OK || code == Game.CODE.TIE) {
             player.symbolToggle();
             drawSymbol(index, player.getSymbol());
         }
+
+        code = game.updateBoard(x, y, player.getSymbol());
+        game.drawBoard();
 
         if (code != Game.CODE.TIE && game.hasWon()) {
             String whoWon = player.getCurrentPlayer() + " won!";
