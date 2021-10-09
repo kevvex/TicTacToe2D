@@ -96,4 +96,20 @@ class GameTest {
         game.drawBoard();
         System.out.println();
     }
+
+    @Test
+    @DisplayName("Blocking to place the X symbol for Player 1")
+    void checkIfCanPlacePlayerSymbol() {
+        Game game = new Game();
+        game.updateBoard(1, 0, Game.SYMBOL.X);
+        game.updateBoard(2, 0, Game.SYMBOL.O);
+        game.updateBoard(1, 0, Game.SYMBOL.X); // Click again
+        game.updateBoard(2, 1, Game.SYMBOL.X);
+        Game.CODE code = game.updateBoard(2, 1, Game.SYMBOL.X);
+
+        Assertions.assertEquals(Game.CODE.POSITION_TAKEN, code);
+        game.drawBoard();
+        System.out.println();
+    }
+
 }

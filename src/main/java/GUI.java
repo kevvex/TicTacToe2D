@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Random;
 
 class GUI extends JFrame implements MouseListener {
     private JPanel panel;
@@ -15,7 +16,6 @@ class GUI extends JFrame implements MouseListener {
         game = new Game();
         player = new Player();
         code = Game.CODE.OK;
-
 
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -55,10 +55,18 @@ class GUI extends JFrame implements MouseListener {
         int x = index / Game.BOARD_SIZE;
         int y = index - Game.BOARD_SIZE * x;
 
+        //System.out.println(player.getTextSymbol() + " == " + gridLabels[index].getText());
         if (code == Game.CODE.OK || code == Game.CODE.TIE) {
             player.symbolToggle();
             drawSymbol(index, player.getSymbol());
         }
+
+        /* BUG IN GUI: If placing X, then O, then trying to click on same position
+         * for X again, then in new spot. The GUI doesn't draw the X (but works in
+         * terminal version)
+         *
+         * STATUS: UNRESOLVED
+         */
 
         code = game.updateBoard(x, y, player.getSymbol());
         game.drawBoard();

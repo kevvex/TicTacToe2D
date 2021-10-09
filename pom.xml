@@ -19,6 +19,12 @@
             <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>abbot</groupId>
+            <artifactId>abbot</artifactId>
+            <version>1.4.0</version>
+        </dependency>
     </dependencies>
 
     <build>
