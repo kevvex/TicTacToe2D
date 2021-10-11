@@ -54,10 +54,16 @@ class GUI extends JFrame implements MouseListener {
         int index = cell.getIndex();
         int x = index / Game.BOARD_SIZE;
         int y = index - Game.BOARD_SIZE * x;
+        boolean canToggleSymbolOrDrawSymbol = code == Game.CODE.OK || code == Game.CODE.TIE;
 
-        //System.out.println(player.getTextSymbol() + " == " + gridLabels[index].getText());
-        if (code == Game.CODE.OK || code == Game.CODE.TIE) {
+        if (canToggleSymbolOrDrawSymbol) {
             player.symbolToggle();
+        }
+
+        code = game.updateBoard(x, y, player.getSymbol());
+        game.drawBoard();
+
+        if (canToggleSymbolOrDrawSymbol) {
             drawSymbol(index, player.getSymbol());
         }
 
@@ -65,11 +71,8 @@ class GUI extends JFrame implements MouseListener {
          * for X again, then in new spot. The GUI doesn't draw the X (but works in
          * terminal version)
          *
-         * STATUS: UNRESOLVED
+         * STATUS: RESOLVED
          */
-
-        code = game.updateBoard(x, y, player.getSymbol());
-        game.drawBoard();
 
         if (code != Game.CODE.TIE && game.hasWon()) {
             String whoWon = player.getCurrentPlayer() + " won!";

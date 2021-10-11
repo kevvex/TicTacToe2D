@@ -202,6 +202,6 @@ class Game {
             System.out.print("|");
             System.out.println();
         }
-        System.out.println("|---|---|---|");
+        System.out.println("|---|---|---|\n");
     }
 }
