@@ -13,6 +13,10 @@ class GUI extends JFrame implements MouseListener {
     private Player player;
 
     GUI() {
+        init();
+    }
+
+    private void init() {
         game = new Game();
         player = new Player();
         code = Game.CODE.OK;
@@ -74,9 +78,14 @@ class GUI extends JFrame implements MouseListener {
          * STATUS: RESOLVED
          */
 
-        if (code != Game.CODE.TIE && game.hasWon()) {
+        if (game.hasWon()) {
             String whoWon = player.getCurrentPlayer() + " won!";
-            System.out.println(whoWon);
+            JOptionPane.showMessageDialog(panel, whoWon);
+            init();
+        }
+        else if (code == Game.CODE.TIE) {
+            JOptionPane.showMessageDialog(panel, "It is a tie!");
+            init();
         }
     }
 

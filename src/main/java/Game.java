@@ -25,6 +25,10 @@ class Game {
     private char[][] board = new char[BOARD_SIZE][BOARD_SIZE];
 
     Game() {
+        init();
+    }
+
+    private void init() {
         inputX = inputY = 0;
         initEmptyBoard();
     }
