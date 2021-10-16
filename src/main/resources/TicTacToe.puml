@@ -1,0 +1,47 @@
+@startuml
+
+
+Game *-- Cell: 1..*
+Game *-- Player: 2
+
+class Coordinate {
+    -index: int
+    -x: int
+    -y: int
+}
+
+class CoordinateConverter {
+
+    +convertToCoordinate(int index): Coordinate
+    +convertToIndex(c: Coordinate)
+
+    +setCoordinate(int x, int y): void
+    +getCoordinate(): Cell
+}
+
+class Game {
+    -board: HashMap<Integer, Coordinate>
+    -human: Player
+    -computer: Player
+    +checkIfSomeoneHasWon(): boolean
+    +updateBoard(c: Coordinate, symbol: char): STATUS
+    +drawBoard(): void
+    -initEmptyBoard(): void
+    -putWhichSymbol(): char
+    -isBoardFull(): boolean
+}
+
+class Player {
+  -symbol: char
+  +Player(char symbol)
+  +getSymbol(): char
+}
+
+enum STATUS {
+    GAME_OVER
+    TIE
+    INVALID_COORDINATE
+    POSITION_TAKEN
+}
+
+@enduml
